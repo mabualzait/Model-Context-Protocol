@@ -1,0 +1,9 @@
+# 📖 Chapter: Appendices
+# 📖 Section: B.2 MCP Message Types
+
+{
+  "jsonrpc": "2.0",
+  "method": "prompts/list",
+  "params": {},
+  "id": 6
+}

@@ -1,0 +1,36 @@
+# 📖 Chapter: Chapter 6: The Host: Orchestrating MCP Sessions
+# 📖 Section: 6.6 Production Deployment Strategies
+
+version: '3.8'
+
+services:
+  mcp-host:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - MCP_HOST_PORT=5000
+      - MCP_HOST_LOG_LEVEL=INFO
+    volumes:
+      - ./config:/app/config
+    restart: unless-stopped
+    depends_on:
+      - redis
+      - postgres
+  
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+  
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=mcp_host
+      - POSTGRES_USER=mcp
+      - POSTGRES_PASSWORD=secret
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

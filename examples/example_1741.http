@@ -1,0 +1,13 @@
+# 📖 Chapter: Chapter 2: The Architecture of MCP
+# 📖 Section: 2.6 Transport Mechanisms
+
+POST /messages HTTP/1.1
+Host: mcp-server.example.com
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "initialize",
+  "params": {...}
+}

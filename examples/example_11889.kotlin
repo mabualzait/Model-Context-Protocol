@@ -1,0 +1,105 @@
+# 📖 Chapter: Chapter 8: Integrating MCP into Applications
+# 📖 Section: 8.7 Detailed IDE Integration Examples
+
+import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.project.Project
+import com.intellij.openapi.startup.StartupActivity
+import io.ktor.client.*
+import io.ktor.client.engine.cio.*
+import io.ktor.client.request.*
+import io.ktor.client.statement.*
+import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.json.*
+
+class MCPPlugin : StartupActivity {
+    private val client = HttpClient(CIO)
+    private val json = Json { ignoreUnknownKeys = true }
+    
+    override fun runActivity(project: Project) {
+        ApplicationManager.getApplication().executeOnPooledThread {
+            initializeMCP(project)
+        }
+    }
+    
+    private fun initializeMCP(project: Project) {
+        runBlocking {
+            try {
+                // Connect to MCP server
+                val initResponse = client.post("http://localhost:8080/mcp") {
+                    contentType(ContentType.Application.Json)
+                    setBody(json.encodeToString(InitRequest.serializer(), InitRequest(
+                        protocolVersion = "2024-11-05",
+                        capabilities = emptyMap(),
+                        clientInfo = ClientInfo("idea-plugin", "1.0.0")
+                    )))
+                }
+                
+                val initResult = json.decodeFromString<InitResult>(
+                    InitResult.serializer(),
+                    initResponse.bodyAsText()
+                )
+                
+                // Discover tools
+                val toolsResponse = client.post("http://localhost:8080/mcp") {
+                    contentType(ContentType.Application.Json)
+                    setBody(json.encodeToString(ToolListRequest.serializer(), ToolListRequest()))
+                }
+                
+                val toolsResult = json.decodeFromString<ToolListResult>(
+                    ToolListResult.serializer(),
+                    toolsResponse.bodyAsText()
+                )
+                
+                // Register actions for each tool
+                toolsResult.tools.forEach { tool ->
+                    val action = MCPToolAction(tool, project)
+                    actionManager.registerAction("mcp.${tool.name}", action)
+                }
+                
+                // Discover resources
+                val resourcesResponse = client.post("http://localhost:8080/mcp") {
+                    contentType(ContentType.Application.Json)
+                    setBody(json.encodeToString(ResourceListRequest.serializer(), ResourceListRequest()))
+                }
+                
+                // Setup resource providers
+                // ...
+                
+            } catch (e: Exception) {
+                // Handle error
+                e.printStackTrace()
+            }
+        }
+    }
+}
+
+class MCPToolAction(
+    private val tool: Tool,
+    private val project: Project
+) : AnAction(tool.description) {
+    override fun actionPerformed(e: AnActionEvent) {
+        val dialog = MCPToolDialog(project, tool)
+        if (dialog.showAndGet()) {
+            val arguments = dialog.getArguments()
+            
+            // Invoke tool
+            runBlocking {
+                val response = client.post("http://localhost:8080/mcp") {
+                    contentType(ContentType.Application.Json)
+                    setBody(json.encodeToString(ToolCallRequest.serializer(), ToolCallRequest(
+                        name = tool.name,
+                        arguments = arguments
+                    )))
+                }
+                
+                val result = json.decodeFromString<ToolCallResult>(
+                    ToolCallResult.serializer(),
+                    response.bodyAsText()
+                )
+                
+                // Display result
+                showResult(result)
+            }
+        }
+    }
+}

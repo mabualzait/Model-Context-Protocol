@@ -1,0 +1,9 @@
+# 📖 Chapter: Appendices
+# 📖 Section: B.4 Version Compatibility
+
+{
+  "result": {
+    "protocolVersion": "2024-11-05",  // Server confirms or downgrades
+    "capabilities": {}
+  }
+}

@@ -1,0 +1,4 @@
+# 📖 Chapter: Chapter 7: Building Your First MCP Server
+# 📖 Section: 7.1 Getting Started: Project Setup
+
+mcp>=0.1.0

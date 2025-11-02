@@ -1,0 +1,17 @@
+# 📖 Chapter: Appendices
+# 📖 Section: B.2 MCP Message Types
+
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "resources": [
+      {
+        "uri": "file:///path/to/file.txt",
+        "name": "file.txt",
+        "description": "Example file",
+        "mimeType": "text/plain"
+      }
+    ]
+  },
+  "id": 2
+}

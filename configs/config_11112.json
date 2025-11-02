@@ -1,0 +1,21 @@
+# 📖 Chapter: Chapter 8: Integrating MCP into Applications
+# 📖 Section: 8.2 IDE Integrations
+
+{
+  "mcp_servers": {
+    "filesystem": {
+      "command": "python",
+      "args": ["-m", "filesystem-server"],
+      "env": {
+        "ROOT_PATH": "/path/to/workspace"
+      }
+    },
+    "git": {
+      "command": "python",
+      "args": ["-m", "git-server"],
+      "env": {
+        "REPO_PATH": "/path/to/repo"
+      }
+    }
+  }
+}

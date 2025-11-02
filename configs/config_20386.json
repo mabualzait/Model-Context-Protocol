@@ -1,0 +1,22 @@
+# 📖 Chapter: Appendices
+# 📖 Section: B.2 MCP Message Types
+
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "prompts": [
+      {
+        "name": "analyze_document",
+        "description": "Analyze a document",
+        "arguments": [
+          {
+            "name": "document_path",
+            "description": "Path to document",
+            "required": true
+          }
+        ]
+      }
+    ]
+  },
+  "id": 6
+}

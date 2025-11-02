@@ -1,0 +1,14 @@
+# 📖 Chapter: Appendices
+# 📖 Section: B.2 MCP Message Types
+
+{
+  "jsonrpc": "2.0",
+  "method": "tools/call",
+  "params": {
+    "name": "read_file",
+    "arguments": {
+      "path": "/path/to/file.txt"
+    }
+  },
+  "id": 5
+}

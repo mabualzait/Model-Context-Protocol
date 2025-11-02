@@ -1,0 +1,59 @@
+# 📖 Chapter: Chapter 6: The Host: Orchestrating MCP Sessions
+# 📖 Section: 6.6 Production Deployment Strategies
+
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mcp-host
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mcp-host
+  template:
+    metadata:
+      labels:
+        app: mcp-host
+    spec:
+      containers:
+      - name: mcp-host
+        image: mcp-host:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: MCP_HOST_PORT
+          value: "5000"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mcp-host-service
+spec:
+  selector:
+    app: mcp-host
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 5000
+  type: LoadBalancer

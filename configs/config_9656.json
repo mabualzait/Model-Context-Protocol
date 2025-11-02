@@ -1,0 +1,22 @@
+# 📖 Chapter: Chapter 7: Building Your First MCP Server
+# 📖 Section: 7.6 Deployment and Distribution
+
+{
+  "server": {
+    "name": "my-server",
+    "version": "1.0.0"
+  },
+  "resources": {
+    "filesystem": {
+      "root_path": "/path/to/workspace"
+    }
+  },
+  "tools": {
+    "filesystem": {
+      "root_path": "/path/to/workspace"
+    },
+    "web_search": {
+      "api_key": "your-api-key"
+    }
+  }
+}

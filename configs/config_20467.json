@@ -1,0 +1,15 @@
+# 📖 Chapter: Appendices
+# 📖 Section: B.3 Error Codes
+
+{
+  "jsonrpc": "2.0",
+  "error": {
+    "code": -32001,
+    "message": "Resource not found",
+    "data": {
+      "uri": "file:///nonexistent/file.txt",
+      "suggestion": "Check if the file exists and path is correct"
+    }
+  },
+  "id": 8
+}

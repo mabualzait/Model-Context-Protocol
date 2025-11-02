@@ -1,0 +1,14 @@
+# 📖 Chapter: Chapter 2: The Architecture of MCP
+# 📖 Section: 2.2 JSON-RPC 2.0 Fundamentals
+
+{
+  "jsonrpc": "2.0",
+  "method": "notifications/progress",
+  "params": {
+    "progressToken": "abc123",
+    "value": {
+      "kind": "begin",
+      "title": "Processing..."
+    }
+  }
+}

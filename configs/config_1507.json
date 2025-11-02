@@ -1,0 +1,60 @@
+# 📖 Chapter: Chapter 2: The Architecture of MCP
+# 📖 Section: 2.3 MCP Message Types
+
+// Client → Server
+{
+  "jsonrpc": "2.0",
+  "id": 6,
+  "method": "prompts/list"
+}
+
+// Server → Client
+{
+  "jsonrpc": "2.0",
+  "id": 6,
+  "result": {
+    "prompts": [
+      {
+        "name": "code_review",
+        "description": "Review code for security issues",
+        "arguments": [
+          {
+            "name": "code",
+            "description": "Code to review",
+            "required": true
+          }
+        ]
+      }
+    ]
+  }
+}
+
+// Client → Server
+{
+  "jsonrpc": "2.0",
+  "id": 7,
+  "method": "prompts/get",
+  "params": {
+    "name": "code_review",
+    "arguments": {
+      "code": "def authenticate(user, password):\n    return user == 'admin' and password == 'password'"
+    }
+  }
+}
+
+// Server → Client
+{
+  "jsonrpc": "2.0",
+  "id": 7,
+  "result": {
+    "messages": [
+      {
+        "role": "user",
+        "content": {
+          "type": "text",
+          "text": "Review this code for security issues:\n\n```python\ndef authenticate(user, password):\n    return user == 'admin' and password == 'password'\n```"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+# 📖 Chapter: Chapter 2: The Architecture of MCP
+# 📖 Section: 2.5 Protocol Versioning and Compatibility
+
+{
+  "protocolVersion": "2024-11-05",
+  "capabilities": {
+    "experimental": {
+      "customFeature": true
+    }
+  }
+}

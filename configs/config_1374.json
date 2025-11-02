@@ -1,0 +1,50 @@
+# 📖 Chapter: Chapter 2: The Architecture of MCP
+# 📖 Section: 2.3 MCP Message Types
+
+// Client → Server
+{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "resources/list"
+}
+
+// Server → Client
+{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "result": {
+    "resources": [
+      {
+        "uri": "file:///path/to/file.txt",
+        "name": "file.txt",
+        "mimeType": "text/plain",
+        "description": "A text file"
+      }
+    ]
+  }
+}
+
+// Client → Server
+{
+  "jsonrpc": "2.0",
+  "id": 3,
+  "method": "resources/read",
+  "params": {
+    "uri": "file:///path/to/file.txt"
+  }
+}
+
+// Server → Client
+{
+  "jsonrpc": "2.0",
+  "id": 3,
+  "result": {
+    "contents": [
+      {
+        "uri": "file:///path/to/file.txt",
+        "mimeType": "text/plain",
+        "text": "File contents here..."
+      }
+    ]
+  }
+}

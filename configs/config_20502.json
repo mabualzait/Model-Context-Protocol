@@ -1,0 +1,10 @@
+# 📖 Chapter: Appendices
+# 📖 Section: B.4 Version Compatibility
+
+{
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2024-11-05",  // Client requests version
+    "capabilities": {}
+  }
+}

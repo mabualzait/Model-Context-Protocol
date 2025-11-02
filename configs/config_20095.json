@@ -1,0 +1,9 @@
+# 📖 Chapter: Appendices
+# 📖 Section: B.1 JSON-RPC 2.0 Specification Summary
+
+{
+  "jsonrpc": "2.0",
+  "method": "method_name",
+  "params": {},
+  "id": 1
+}

@@ -1,0 +1,16 @@
+# 📖 Chapter: Appendices
+# 📖 Section: B.2 MCP Message Types
+
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "File contents..."
+      }
+    ],
+    "isError": false
+  },
+  "id": 5
+}

@@ -1,0 +1,15 @@
+# 📖 Chapter: Chapter 2: The Architecture of MCP
+# 📖 Section: 2.2 JSON-RPC 2.0 Fundamentals
+
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "protocolVersion": "2024-11-05",
+    "capabilities": {},
+    "serverInfo": {
+      "name": "filesystem",
+      "version": "1.0.0"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+# 📖 Chapter: Chapter 2: The Architecture of MCP
+# 📖 Section: 2.2 JSON-RPC 2.0 Fundamentals
+
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "error": {
+    "code": -32600,
+    "message": "Invalid Request",
+    "data": "Missing required parameter: method"
+  }
+}

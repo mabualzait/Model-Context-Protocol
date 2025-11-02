@@ -1,0 +1,45 @@
+# 📖 Chapter: Chapter 8: Integrating MCP into Applications
+# 📖 Section: 8.5 Enterprise Integration Patterns
+
+# Kubernetes Service Mesh configuration
+apiVersion: v1
+kind: Service
+metadata:
+  name: mcp-server
+spec:
+  ports:
+  - port: 8080
+    name: mcp-http
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: mcp-server
+spec:
+  hosts:
+  - mcp-server
+  http:
+  - match:
+    - uri:
+        prefix: /mcp
+    route:
+    - destination:
+        host: mcp-server
+        port:
+          number: 8080
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: mcp-server-auth
+spec:
+  selector:
+    matchLabels:
+      app: mcp-server
+  rules:
+  - from:
+    - source:
+        principals: ["cluster.local/ns/default/sa/mcp-client"]
+    to:
+    - operation:
+        methods: ["POST"]
